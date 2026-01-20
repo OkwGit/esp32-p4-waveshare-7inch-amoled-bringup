@@ -1,0 +1,148 @@
+# ESP-IDF Build files
+build/
+**/build/
+
+# ESP-IDF Configuration
+sdkconfig
+sdkconfig.old
+sdkconfig.defaults.old
+
+# Dependencies
+dependencies.lock
+managed_components/
+**/managed_components/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Compiled Object files
+*.o
+*.obj
+*.elf
+*.bin
+*.map
+
+# Preprocessor output
+*.i
+*.ii
+
+# Assembly files
+*.s
+*.S
+
+# Libraries
+*.a
+*.lib
+*.so
+*.dylib
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Ninja
+build.ninja
+rules.ninja
+.ninja_deps
+.ninja_log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Logs
+*.log
+log/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# Flash files
+flash_args
+flash_app_args
+flash_bootloader_args
+flash_project_args
+flasher_args.json
+
+# Partition table
+partition-table-flash_args
+
+# GDB
+gdbinit/
+.gdb_history
+
+# ESP-IDF specific
+config.env
+kconfigs.in
+kconfigs_projbuild.in
+ldgen_libraries
+ldgen_libraries.in
+
+# Arduino IDE
+*.ino.bak
+
+# Large binary files (if not needed in repo)
+*.pdf
+*.zip
+*.tar.gz
+*.rar
+
+# Keep example PDF but ignore if too large
+# Uncomment if you want to ignore the PDF
+# esp32-p4-waveshare-7inch-amoled-bringup*.pdf
+
+# Keep documentation but ignore compiled binaries
+Firmware/*.bin
+
+# OS specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Project specific - keep source but ignore builds
+01_LogoAnimation/build/
+01_LogoAnimation/sdkconfig
+01_LogoAnimation/dependencies.lock
+01_LogoAnimation/managed_components/
+
+ESP32-P4-WIFI6-Touch-LCD-7B-main/examples/ESP-IDF/*/build/
+ESP32-P4-WIFI6-Touch-LCD-7B-main/examples/ESP-IDF/*/sdkconfig
+ESP32-P4-WIFI6-Touch-LCD-7B-main/examples/ESP-IDF/*/dependencies.lock
+ESP32-P4-WIFI6-Touch-LCD-7B-main/examples/ESP-IDF/*/managed_components/
+

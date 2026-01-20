@@ -1,0 +1,417 @@
+﻿Documentation  For the Equipment：
+Documentation ：
+Waveshare ESP32-P4-Wi-F6 7inch 5-Point Touch Display Development Board, Powered by ESP32-P4 and ESP32-C6, 1024 × 600 Resolution, Supports WI-F 6 and Blue-T 5 (LE)
+________________
+About this item
+High-Performance MCU: Features a RISC-V 32-bit dual-core and single-core processors, delivering exceptional processing power for various applications.
+Memory Configuration: Equipped with 128 KB HP ROM, 16 KB LP ROM, 768 KB HP L2MEM, 32 KB LP SRAM, and 8 KB TCM, offering ample memory for efficient data handling.
+Advanced Image and Voice Processing: Supports powerful image and voice processing capabilities with interfaces including JPEG Codec, Pixel Processing Accelerator, Image Signal Processor, and H264 Encoder.
+Advanced Image and Voice Processing: Supports powerful image and voice processing capabilities with interfaces including JPEG Codec, Pixel Processing Accelerator, Image Signal Processor, and H264 Encoder.
+Enhanced Security and Communication Features: Integrated with security features like Secure Boot, Flash Encryption, cryptographic accelerators, and TRNG, along with communication options via RS485, CAN, I2C, and UART headers for seamless interaction with industrial equipment.
+
+
+________________
+
+
+Product information
+Features & Specs
+Platform        Custom
+Memory Storage Capacity        32 MB
+Main Power Connector Type        24-Pin
+Graphics Card Interface        Integrated
+Number of Ports        2
+Total Usb Ports        2
+Item details
+Brand        Waveshare
+Model Number        ESP32-P4-WIFI6
+Manufacturer        Waveshare
+Customer Reviews        5.0 5.0 out of 5 stars   (1)
+5.0 out of 5 stars
+Best Sellers Rank        
+#20,720 in Electronics (See Top 100 in Electronics)
+#160 in Computer Motherboards
+ASIN        B0FSXGK4TG
+
+
+________________
+
+
+
+
+=== Sheet: Overview ===
+
+
+ESP32-P4-WIFI6-Touch-LCD-7B — Coding Reference Sheet        
+
+
+Specs and module inventory extracted from the product images you provided. Use this as a checklist for bring-up (display, touch, Wi‑Fi/BT, audio, camera, storage, USB, and expansion headers).        
+
+
+        
+
+
+Board / Product Name        ESP32-P4-WIFI6 7inch Touch Display Development Board
+
+
+Base SoC        ESP32-P4 (RISC‑V MCU)
+
+
+Connectivity Co-processor        ESP32‑C6‑MINI‑1 (Wi‑Fi 6 + Bluetooth 5 LE) via SDIO
+
+
+Display        7" IPS touch display, 1024×600
+
+
+Touch        Capacitive, 5‑point; touch controller: GT911
+
+
+Memory (board callouts)        32MB PSRAM; 32MB flash (Nor Flash)
+
+
+Key high-speed interfaces        MIPI‑DSI (display), MIPI‑CSI 2‑lane (camera), USB OTG 2.0 HS, SDIO 3.0 (TF card)
+
+
+Audio        ES8311 codec + ES7210 echo cancellation; onboard dual microphones; speaker header
+
+
+Versions shown        Standard: ESP32-P4-WIFI6-Touch-LCD-7B; Camera bundle: ...-7B-C (OV5647)
+
+
+        
+
+
+Important note        The images do not include full pin maps (GPIO numbers), I2C addresses, or detailed panel timing. You will still need the vendor wiki/schematic + the GT911/ES8311/ES7210 datasheets for register-level details.
+
+
+
+
+=== Sheet: Display ===
+
+
+Field        Value        Notes for coding        Source (image)
+
+
+                        
+
+
+Model        7inch IPS touch display        UI layout baseline: 7" 1024×600 landscape.        Display Specifications
+
+
+Resolution        1024 × 600        LVGL / framebuffer should be configured for 1024×600.        Display Specifications / Feature banner
+
+
+Display panel        IPS        No special coding impact; informs viewing characteristics.        Display Specifications / Feature banner
+
+
+Color depth (marketing)        16.7M        Often implies 24-bit RGB888 capability somewhere in the pipeline.        Display Specifications
+
+
+Display comm interface        Supports RGB565, RGB666, RGB888        Pixel format selection for UI / DMA (if RGB path is exposed).        Display Specifications
+
+
+Contrast ratio        600:1        No direct coding impact.        Display Specifications
+
+
+Viewing angle        160°        No direct coding impact.        Display Specifications
+
+
+Brightness        350 cd/m²        Backlight / brightness control method not specified in images.        Display Specifications
+
+
+Outline dimension (H×V)        99.17 × 164.28 mm        Physical packaging reference.        Display Specifications / Dimension diagram
+
+
+Display area (H×V)        86.42 × 154.58 mm        Physical active area reference.        Display Specifications / Dimension diagram
+
+
+Board callout: LCD interface        MIPI DSI LCD interface        Driver will need MIPI‑DSI panel init + timing; not provided in images.        Board callout diagram
+
+
+
+
+=== Sheet: Touch ===
+
+
+Field        Value        Notes for coding        Source (image)
+
+
+                        
+
+
+Touch type        Capacitive        Use an I2C/SPI touch controller driver (see GT911).        Display Specifications
+
+
+Touch points (marketing)        5-point        Multi-touch supported; verify driver reports multiple contacts.        Feature banner
+
+
+Touch chip        GT911        Implement GT911 driver (I2C) + map coordinates to 1024×600.        Display Specifications
+
+
+Touch panel connector        Present (board connector)        INT/RST pin wiring not specified; need schematic/wiki.        Board callout diagram
+
+
+
+
+=== Sheet: Compute+Memory ===
+
+
+Category        Spec / Module        Numbers / Details        Notes for coding        Source (image)
+
+
+                                
+
+
+MCU        ESP32-P4        RISC‑V MCU; 32-bit dual-core and single-core processors (marketing text)        Select correct target + toolchain (ESP-IDF for ESP32-P4).        Features text
+
+
+ROM/RAM (on-chip)        HP/LP memory (marketing text)        128 KB HP ROM; 16 KB LP ROM; 768 KB HP L2MEM; 32 KB LP SRAM; 8 KB TCM        Helps set expectations for IRAM/DRAM; use PSRAM for large buffers.        Features text
+
+
+PSRAM        In-chip package        32MB PSRAM        Enable PSRAM in SDK config for LVGL framebuffers / camera buffers.        Feature banner / Features text
+
+
+Flash        Onboard Nor Flash        32MB Nor Flash        Partition table sizing; enable flash encryption if needed.        Feature banner / Board callout
+
+
+Security        Secure features (marketing text)        Secure Boot; Flash Encryption; crypto accelerators; TRNG; HW access protection        Optional: enable secure boot/flash encryption in production.        Features text
+
+
+
+
+=== Sheet: Connectivity ===
+
+
+Category        Module        Spec / Detail        Interface to ESP32-P4        Notes for coding        Source (image)
+
+
+                                        
+
+
+Wi‑Fi        ESP32‑C6‑MINI‑1        2.4GHz Wi‑Fi 6        SDIO        Requires ESP-IDF support for C6 co-processor path used on this board.        Wi‑Fi/BT image + Board callout
+
+
+Bluetooth        ESP32‑C6‑MINI‑1        Bluetooth 5 (LE)        SDIO        Same module; API usage depends on vendor BSP.        Wi‑Fi/BT image + Board callout
+
+
+
+
+=== Sheet: Connectors ===
+
+
+Ref #        Label (as shown)        Type / Protocol        What it is        Coding impact        Source (image)
+
+
+                                        
+
+
+1        ESP32-P4-Core        SoC module        Integrated ESP32-P4NRW32 and 32MB Nor Flash        Target device for firmware.        Board callout diagram
+
+
+2        ESP32-C6-MINI-1 module        SDIO        Wi‑Fi 6 / Bluetooth 5 (LE) module        Network stack path depends on BSP.        Board callout diagram
+
+
+3        ESP32-C6 UART header        UART        Header for ESP32‑C6 UART        Use for debug or module interaction (details not in images).        Board callout diagram
+
+
+4        ES8311 low-power audio codec chip        Audio codec        Audio encoding/decoding        Driver needed for playback/capture.        Board callout diagram
+
+
+5        ES7210 echo cancellation chip        Audio processing        Echo cancellation algorithm chip        Driver/config required for mic path.        Board callout diagram
+
+
+6        MIPI DSI LCD interface        MIPI‑DSI        Connector for MIPI 7" LCD        Panel init + DSI timing required.        Board callout diagram
+
+
+7        Touch panel connector        Touch (controller GT911)        Touch panel connector        Touch init + coordinate mapping.        Board callout diagram
+
+
+8        MIPI-CSI (2-lane) camera interface        MIPI‑CSI 2‑lane        15-pin 1.0mm pitch; supports RPi FPC Camera (B) / RPi Camera (B)        Camera driver + ISP pipeline; details not in images.        Board callout diagram
+
+
+9        MX1.25 battery interface        Power        Battery interface (forward polarity)        Power management (charging details not shown).        Board callout diagram
+
+
+10        PH2.0 speaker header        Audio out        Speaker header (non-polarized)        Audio amp routing not shown; validate channel mapping.        Board callout diagram
+
+
+11        RTC battery holder        RTC backup power        CR1220; supports rechargeable 3V~3.3V batteries        RTC domain usage depends on BSP.        Board callout diagram
+
+
+12        Power supply ON/OFF switch        Power        Power toggle switch        May affect boot / reset behavior.        Board callout diagram
+
+
+13        LED operating status indicator        GPIO (unknown)        Status LED        Need GPIO number from schematic.        Board callout diagram
+
+
+14        Type-A port        USB OTG 2.0 HS        USB OTG 2.0 High Speed port        USB host/device depending on firmware.        Board callout diagram
+
+
+15        Type-C USB1.1 FS port        USB FS        Power supply, programming, debugging        Used for flashing/debug (port mapping unknown).        Board callout diagram
+
+
+16        USB TO UART Type-C port        USB-UART        Power supply, programming, debugging        Primary serial console likely here.        Board callout diagram
+
+
+17        RESET button        Button        Reset        Hard reset.        Board callout diagram
+
+
+18        BOOT button        Button        Enter download mode when powering on/resetting        Bootstrapping for flashing.        Board callout diagram
+
+
+19        PH2.0 4PIN I2C header        I2C        For connecting I2C devices        Configure I2C bus; pins not specified.        Board callout diagram + Expansion image
+
+
+20        PH2.0 4PIN UART header        UART        For connecting UART devices        UART pin mapping not specified.        Board callout diagram + Expansion image
+
+
+21        PH2.0 4PIN CAN header        CAN        For connecting CAN devices        CAN transceiver presence not shown; confirm.        Board callout diagram + Expansion image
+
+
+22        PH2.0 4PIN RS485 header        RS485        For connecting RS485 devices        RS485 transceiver presence not shown; confirm.        Board callout diagram + Expansion image
+
+
+23        Onboard microphones        Audio in        Mic inputs with echo cancellation        Mic + AEC chain uses ES7210.        Board callout diagram + Expansion image
+
+
+24        PH2.0 12PIN GPIO headers        GPIO        2×12 headers; 17 remaining programmable GPIOs + power pins        Need header pinout mapping from wiki/schematic.        Board callout diagram + Features text
+
+
+25        TF card slot        SDIO 3.0        TF card slot (SDIO 3.0 interface)        Use SD/MMC/SDIO driver; pin mapping not specified.        Board callout diagram + Features text
+
+
+26        Reserved space        Mechanical        Reserved space for rechargeable battery        No direct coding impact.        Board callout diagram
+
+
+
+
+=== Sheet: Headers (pins) ===
+
+
+Header        Connector type        Pins (as shown)        Typical use        Notes for coding        Source (image)
+
+
+                                        
+
+
+I2C header        PH2.0 4-pin        SCL / SDA / GND / VCC        I2C sensors, expanders, etc.        Need to confirm voltage on VCC and the GPIO mapping.        Expansion image
+
+
+UART header        PH2.0 4-pin        TXD / RXD / GND / VCC        Serial peripherals        Need to confirm logic level and UART instance.        Expansion image
+
+
+CAN header        PH2.0 4-pin        H / L / GND / 5V        CAN bus devices        Confirm if onboard transceiver exists; otherwise external transceiver needed.        Expansion image
+
+
+RS485 header        PH2.0 4-pin        A / B / GND / 5V        RS485 devices        Confirm if onboard transceiver exists; otherwise external transceiver needed.        Expansion image
+
+
+
+
+=== Sheet: Versions ===
+
+
+SKU        Description        Camera included        Notes for coding        Source (image)
+
+
+                                
+
+
+ESP32-P4-WIFI6-Touch-LCD-7B        Standard version        No        Display+touch+base peripherals.        Version Options
+
+
+ESP32-P4-WIFI6-Touch-LCD-7B-C        With OV5647 camera        Yes (OV5647)        Requires camera pipeline (MIPI‑CSI) + sensor driver.        Version Options
+
+
+
+
+=== Sheet: Package ===
+
+
+#        Item        Qty        Notes        Source (image)
+
+
+                                
+
+
+1        ESP32-P4-WIFI6-Touch-LCD-7B        x1        Main board + display assembly.        Package Content
+
+
+2        USB Type-A dual-plug cable        x1        Power / connectivity (depends on usage).        Package Content
+
+
+3        USB Type-A to Type-C cable (~1m)        x1        For USB-C port power/programming.        Package Content
+
+
+4        Speaker        x1        Connect to PH2.0 speaker header.        Package Content
+
+
+5        SH1.0 4PIN cable (~150mm)        x1        Accessory cable (use depends on header).        Package Content
+
+
+6        PH2.0 12PIN cable (~200mm)        x2        GPIO headers cable.        Package Content
+
+
+7        PH2.0 4PIN cable (~200mm)        x4        I2C/UART/CAN/RS485 headers cable.        Package Content
+
+
+
+
+=== Sheet: Software checklist ===
+
+
+Subsystem        Hardware / chip        Likely SDK module        Bring-up test you can run        What is missing (need wiki/datasheet)
+
+
+                                
+
+
+Display        MIPI DSI LCD        Display panel driver + LVGL (optional)        Color bars / FPS counter / text render        Panel model, DSI timing, lane cfg, reset/backlight control pins
+
+
+Touch        GT911        I2C touch controller driver        Show touch coordinates + multi-touch markers        I2C bus pins, INT/RST pins, I2C address
+
+
+Wi‑Fi/BT        ESP32‑C6‑MINI‑1 via SDIO        Vendor BSP / SDIO host + networking        Connect to AP; scan; BLE advertise        Exact host interface wiring + BSP support expectations
+
+
+Audio out        ES8311 + speaker header        I2S audio + codec control (likely I2C)        Play 1kHz tone / WAV        Codec bus pins/address; amp routing
+
+
+Audio in        Dual mics + ES7210        I2S capture + AEC config        Record PCM; verify AEC path        Mic routing; ES7210 control interface/address
+
+
+Camera        MIPI‑CSI 2‑lane (OV5647 option)        Camera sensor driver + ISP        Capture frame; dump to SD; show preview        Lane timing; sensor init; supported resolutions
+
+
+Storage        TF card slot (SDIO 3.0)        SD/MMC driver        Mount FAT; read/write file        SDIO pin mapping + voltage
+
+
+USB        USB OTG 2.0 HS + USB FS ports        USB host/device drivers        CDC-ACM serial / MSC / HID demo        Which port maps to which USB controller
+
+
+GPIO        PH2.0 12-pin headers        GPIO driver        Blink test on chosen GPIO        Header pinout → GPIO numbers
+
+
+Buttons        BOOT / RESET        Bootstrapping + reset        Enter download mode; flash test        Boot pin mapping (usually fixed)
+
+
+LED        Status LED        GPIO        Blink status patterns        GPIO number + active-high/low
+
+
+CAN        CAN header        TWAI/CAN driver (if supported)        Bus send/receive demo        Whether transceiver is onboard; pin mapping
+
+
+RS485        RS485 header        UART + RS485 mode (if supported)        Half-duplex echo test        Whether transceiver is onboard; pin mapping
+Product Detail Photos
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+Tab 3
+instruction：
